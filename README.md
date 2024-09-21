@@ -220,6 +220,7 @@ Fetches the logged-in user's profile data.
 
 <img width="484" alt="Screenshot 2024-09-21 at 12 18 07 PM" src="https://github.com/user-attachments/assets/e5f944cb-5a58-4cbe-9f83-8130067cf8a1">
 
+<img width="479" alt="Screenshot 2024-09-21 at 1 22 04 PM" src="https://github.com/user-attachments/assets/0a5632da-cca5-433b-82de-67369ed13a83">
 
 
 
