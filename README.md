@@ -212,7 +212,7 @@ Fetches the logged-in user's profile data.
 
 <img width="1427" alt="Screenshot 2024-09-21 at 12 29 31 PM" src="https://github.com/user-attachments/assets/6d6125e5-f7a2-4f0c-92e5-facfc3568276">
 
-9- Filter Flights usind direction and schedule Date use these options and press Filter Flights:
+9- Filter Flights using direction and schedule Date use these options and press Filter Flights:
 
 <img width="1422" alt="Screenshot 2024-09-21 at 1 31 41 PM" src="https://github.com/user-attachments/assets/3cd3a068-7c9f-4994-8024-b429ac504f55">
 
