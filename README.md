@@ -216,6 +216,7 @@ Fetches the logged-in user's profile data.
 
 <img width="1422" alt="Screenshot 2024-09-21 at 1 31 41 PM" src="https://github.com/user-attachments/assets/3cd3a068-7c9f-4994-8024-b429ac504f55">
 
+Since when Home Component mounts it detchs the flights of the present date. Since booking previous flights is flagged as showing error that the flight date and time has passed so it may show the error while booking it. So fetch the flights of the next date using flights filter and book the flight. Similarly fetch the flights of the previous dates and check if user can book it or not? It will show the error that you cannot book the flight of this date.
 
 
 10- Mobile Responsive design of website:
