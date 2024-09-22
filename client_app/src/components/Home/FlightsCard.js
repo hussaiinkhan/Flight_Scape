@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import Swal from 'sweetalert2';
+
 const FlightsCard = ({ flight }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const FlightsCard = ({ flight }) => {
   // Extract relevant details from flight data
   const departureTime = new Date(flight.scheduleDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const arrivalTime = new Date(flight.estimatedLandingTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const scheduleDate = new Date(flight.scheduleDateTime).toISOString().split('T')[0]; // Schedule date (yyyy-MM-dd format)
   const departureAirport = flight.route.destinations[0]; // Assuming the first destination is the departure airport
   const arrivalAirport = flight.route.destinations[1]; // Assuming the second destination is the arrival airport
   const airline = flight.flightName; // Using the flight name as the airline name
@@ -39,27 +41,39 @@ const FlightsCard = ({ flight }) => {
       navigate('/signin');
       return;
     }
-  
-    // If the user is logged in, proceed with booking the flight
+
+    // Check if the scheduled date is before today's date
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-MM-dd format
+    if (scheduleDate < today) {
+      Swal.fire({
+        title: 'Invalid Date!',
+        text: 'You cannot make a reservation for this date.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
+
+    // If the user is logged in and the date is valid, proceed with booking the flight
     const flightDetails = {
-        flightNumber : airline,
-        departureTime ,
-        arrivalTime ,
-        duration ,
-        price ,
-        from : departureAirport,
-        to : arrivalAirport
+      flightNumber: airline,
+      departureTime,
+      arrivalTime,
+      duration,
+      price,
+      from: departureAirport,
+      to: arrivalAirport
     };
-  
+
     try {
       // Include token in the Authorization header
       const token = localStorage.getItem('token'); // Retrieve the token from localStorage
       const response = await axios.post('http://localhost:5001/api/flights/book', flightDetails, {
         headers: {
-          'Authorization': `Bearer ${token}` // Send the token with the request
-        }
+          'Authorization': `Bearer ${token}`, // Send the token with the request
+        },
       });
-  
+
       if (response.status === 201) {
         Swal.fire({
           title: 'Success!',
@@ -67,7 +81,7 @@ const FlightsCard = ({ flight }) => {
           icon: 'success',
           confirmButtonText: 'OK',
         });
-        navigate('/myflights')
+        navigate('/myflights');
       } else {
         Swal.fire({
           title: 'Error!',
@@ -87,10 +101,12 @@ const FlightsCard = ({ flight }) => {
     }
   };
 
-    // Function to handle viewing flight details
-    const handleViewDetails = () => {
-      navigate('/flightdetails', { state: { flight, price, duration, departureTime, arrivalTime, departureAirport, arrivalAirport, airline } });
-    };
+  // Function to handle viewing flight details
+  const handleViewDetails = () => {
+    navigate('/flightdetails', {
+      state: { flight, price, duration, departureTime, arrivalTime, departureAirport, arrivalAirport, airline },
+    });
+  };
   
 
   return (
