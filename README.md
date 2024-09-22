@@ -88,7 +88,7 @@ Set the following environment variables for smooth operation:
 
 ### Cloning the Repository
 ```bash
-git clone https://github.com/your-username/plane_scape.git
+git clone https://github.com/hussaiinkhan/plane_scape.git
 cd plane_scape
 ```
 
